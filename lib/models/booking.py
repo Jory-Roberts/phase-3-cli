@@ -13,3 +13,13 @@ class Booking(Base):
 
     artist = relationship("Artist", backref="bookings")
     venue = relationship("Venue", backref="bookings")
+
+    def __repr__(self):
+        return (
+            f"\n<Booking "
+            + f"\n id = {self.id}, "
+            + f"\n artist_id = {self.artist_id}, "
+            + f"\n venue_id = {self.venue_id}, "
+            + f"\n booking_date = {self.booking_date}, "
+            + f"\n status = {self.status}"
+        )
