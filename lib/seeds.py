@@ -98,9 +98,12 @@ def delete_records():
 def create_venues():
     venues = []
     for venue_name in venue_names:
+        cleaned_email = "_".join(venue_name.split())
+        venue_email = f"{cleaned_email.lower()}@gmail.com"
+
         venue = Venue(
             venue_name=venue_name,
-            venue_email=f"{venue_name.replace(' ' , ' ').lower()}@gmail.com",
+            venue_email=venue_email,
             venue_address=fake.street_address(),
             venue_city=fake.city(),
             venue_state=fake.state(),
@@ -117,9 +120,12 @@ def create_venues():
 def create_artists():
     artists = []
     for artist_name in artist_names:
+        cleaned_artist_email = "_".join(artist_name.split())
+        artist_email = f"{cleaned_artist_email.lower()}@gmail.com"
+
         artist = Artist(
             artist_name=artist_name,
-            email=f"{artist_name.replace(' ' , ' ').lower()}@gmail.com",
+            email=artist_email,
             phone_number=fake.phone_number(),
             address=fake.street_address(),
             city=fake.city(),
@@ -139,7 +145,7 @@ def create_artists():
 
 def create_bookings(artists, venues):
     bookings = []
-    for _ in range(50):
+    for _ in range(20):
         artist = random.choice(artists)
         venue = random.choice(venues)
         booking_date = fake.date_between_dates(date_start=start_date, date_end=end_date)
@@ -171,7 +177,7 @@ if __name__ == "__main__":
     delete_records()
     artists = create_artists()
     venues = create_venues()
-    bookings = create_bookings()
+    bookings = create_bookings(artists, venues)
     artists, venues, bookings = relate_one_to_many(artists, venues, bookings)
 
 
