@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from models import Artist, Venue, Booking
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
