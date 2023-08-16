@@ -91,6 +91,7 @@ artist_names = [
 def delete_records():
     session.query(Artist).delete()
     session.query(Venue).delete()
+    session.query(Booking).delete()
     session.commit()
 
 
@@ -154,6 +155,24 @@ def create_bookings(artists, venues):
         session.commit()
         bookings.append(booking)
     return bookings
+
+
+def relate_one_to_many(artists, venues, bookings):
+    for booking in bookings:
+        booking.artist = random.choice(artists)
+        booking.venue = random.choice(venues)
+
+    session.add_all(bookings)
+    session.commit()
+    return artists, venues, bookings
+
+
+if __name__ == "__main__":
+    delete_records()
+    artists = create_artists()
+    venues = create_venues()
+    bookings = create_bookings()
+    artists, venues, bookings = relate_one_to_many(artists, venues, bookings)
 
 
 print("Success! 🤘")

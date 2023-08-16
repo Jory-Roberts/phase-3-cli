@@ -11,9 +11,6 @@ class Booking(Base):
     booking_date = Column(Date)
     status = Column(Boolean)
 
-    artist = relationship("Artist", backref="bookings")
-    venue = relationship("Venue", backref="bookings")
-
     def __repr__(self):
         return (
             f"\n<Booking "
