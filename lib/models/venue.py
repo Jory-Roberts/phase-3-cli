@@ -13,7 +13,7 @@ class Venue(Base):
     venue_city = Column(String)
     venue_state = Column(String)
     venue_zip_code = Column(String)
-    capacity = Column(String)
+    capacity = Column(Integer)
 
     artists = relationship("Artist", secondary=booking)
 
