@@ -20,3 +20,20 @@ class Booking(Base):
             + f"\n booking_date = {self.booking_date}, "
             + f"\n status = {self.status}"
         )
+
+    def create_booking():
+        ##query by status and booking date
+        ## if booking status false, allow for booking
+        ## otherwise, return message booking not created
+        pass
+
+    def cancel_booking():
+        ##query by booking_date
+        ## remove booking, return message that confirmed
+        pass
+
+    def confirmed_booking():
+        ##if true:
+        ## return message that venue is booked
+        ## otherwise, return message that venue is available
+        pass

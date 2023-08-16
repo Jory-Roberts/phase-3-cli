@@ -34,3 +34,24 @@ class Artist(Base):
             + f"\n availability={self.availability} "
             + f"\n>"
         )
+
+    def create_artist_entry():
+        ##query by artist name
+        ## if artist name available, create new artist entry
+        pass
+
+    def update_artist_contact():
+        ##filter by artist email, phone_number
+        ##allow artist to update email, phone_number
+        ## return confirmed
+        pass
+
+    def remove_artist():
+        ##query by artist name
+        ## if name matches remove
+        pass
+
+    def find_by_availability():
+        ##filter by availability date
+        ## if date matches return message available
+        pass

@@ -27,3 +27,18 @@ class Venue(Base):
             + f"\n capacity={self.capacity} "
             + f"\n>"
         )
+
+    def update_venue_capacity():
+        ## query venue by capacity
+        ## allow update of venue capacity
+        pass
+
+    def create_new_venue():
+        ##filter by venue name
+        ## if venue name is available create new venue
+        pass
+
+    def delete_venue():
+        ## filter by venue name
+        ## if venue available, remove venue
+        pass
