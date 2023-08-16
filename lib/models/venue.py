@@ -16,3 +16,17 @@ class Venue(Base):
     capacity = Column(String)
 
     artists = relationship("Artist", secondary=booking)
+
+    def __repr__(self):
+        return (
+            f"\n<Venue "
+            + f"\n id={self.id}, "
+            + f"\n venue_name={self.venue_name}, "
+            + f"\n venue_email={self.venue_email}, "
+            + f"\n venue_address={self.venue_address}, "
+            + f"\n venue_city={self.venue_city}, "
+            + f"\n venue_state={self.venue_state}, "
+            + f"\n venue_zip_code={self.venue_zip_code}, "
+            + f"\n capacity={self.capacity} "
+            + f"\n>"
+        )
