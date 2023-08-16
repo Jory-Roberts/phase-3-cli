@@ -104,7 +104,6 @@ def create_venues():
         venue = Venue(
             venue_name=venue_name,
             venue_email=venue_email,
-            venue_address=fake.street_address(),
             venue_city=fake.city(),
             venue_state=fake.state(),
             venue_zip_code=fake.postcode(),
