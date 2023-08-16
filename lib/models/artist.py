@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from .base import Base
 from .session import Session
-from .booking import booking
 
 
 class Artist(Base):
@@ -18,7 +17,7 @@ class Artist(Base):
     genre = Column(String)
     availability = Column(Date)
 
-    venues = relationship("Venue", secondary=booking)
+    bookings = relationship("Booking", backref="artist")
 
     def __repr__(self):
         return (
