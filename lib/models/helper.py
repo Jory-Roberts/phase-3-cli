@@ -79,7 +79,7 @@ def remove_artist(artist_name):
 
 
 def artist_availability():
-    ##filter by availability date
+    ##filter by availability date and artist name
     ## if date matches return message available
     pass
 
