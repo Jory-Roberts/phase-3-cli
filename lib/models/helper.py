@@ -114,9 +114,20 @@ def check_venue_capacity(venue_name, capacity):
 
 ##query venue by name and capacity
 ##update venue capacity
-def update_venue_capacity(venue_name, capacity):
+def update_venue_capacity(venue_name, capacity, new_capacity):
     session = Session()
-    pass
+
+    current_venue_capacity = (
+        session.query(Venue).filter_by(venue_name=venue_name, capacity=capacity).first()
+    )
+    if current_venue_capacity:
+        current_venue_capacity.capacity = new_capacity
+        print(
+            f"Venue: {venue_name} has updated to {new_capacity} for seating capacity."
+        )
+        session.commit()
+    else:
+        print(f"Venue: {venue_name} capacity has not been updated.")
 
 
 def create_new_venue():
