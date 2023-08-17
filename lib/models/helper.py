@@ -40,11 +40,26 @@ def create_artist_entry(
         print(f"Artist: {artist_name} already exists")
 
 
-def update_artist_contact():
-    ##filter by artist email, phone_number
-    ##allow artist to update email, phone_number
-    ## return confirmed
-    pass
+##filter by artist name
+##allow artist to update email, phone_number
+## return confirmed
+def update_artist_contact(artist_name, new_email, new_phone_number):
+    session = Session()
+
+    update_existing_artist = (
+        session.query(Artist).filter_by(artist_name=artist_name).first()
+    )
+
+    if update_existing_artist:
+        update_existing_artist.email = new_email
+        update_existing_artist.phone_number = new_phone_number
+        print(
+            f"Artist: {artist_name} contact information has been updated successfully!"
+        )
+        session.add(update_existing_artist)
+        session.commit()
+    else:
+        print(f"Artist: {artist_name} not found!")
 
 
 def remove_artist():
