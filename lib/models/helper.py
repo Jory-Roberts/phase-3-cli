@@ -62,13 +62,23 @@ def update_artist_contact(artist_name, new_email, new_phone_number):
         print(f"Artist: {artist_name} not found!")
 
 
-def remove_artist():
-    ##query by artist name
-    ## if name matches remove
-    pass
+##query by artist name
+## if name matches remove
+def remove_artist(artist_name):
+    session = Session()
+    remove_current_artist = (
+        session.query(Artist).filter_by(artist_name=artist_name).first()
+    )
+
+    if remove_current_artist:
+        session.delete(remove_current_artist)
+        session.commit()
+        print(f"Artist: {artist_name} removed!")
+    else:
+        print(f"Artist: {artist_name} does not exist. Try again!")
 
 
-def find_by_availability():
+def artist_availability():
     ##filter by availability date
     ## if date matches return message available
     pass
