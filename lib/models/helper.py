@@ -96,9 +96,26 @@ def artist_availability(artist_name, availability):
         print(f"Artist: {artist_name} is not available on {availability}")
 
 
-def update_venue_capacity():
-    ## query venue by capacity
-    ## allow update of venue capacity
+## query venue by name and capacity
+## allow check of venue capacity
+def check_venue_capacity(venue_name, capacity):
+    session = Session()
+
+    check_venue_capacity = (
+        session.query(Venue).filter_by(venue_name=venue_name, capacity=capacity).first()
+    )
+
+    if check_venue_capacity:
+        session.commit()
+        print(f"Venue: {venue_name} has {capacity} seats available for seating")
+    else:
+        print(f"Venue: Unable to find {venue_name} with {capacity} provided")
+
+
+##query venue by name and capacity
+##update venue capacity
+def update_venue_capacity(venue_name, capacity):
+    session = Session()
     pass
 
 
