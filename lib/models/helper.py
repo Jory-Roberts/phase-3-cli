@@ -122,7 +122,9 @@ def update_venue_capacity(venue_name, capacity, new_capacity):
         print(
             f"Venue: {venue_name} has been updated to {new_capacity} for seating capacity."
         )
+
         session.commit()
+
     else:
         print(f"Venue: {venue_name} capacity has not been updated.")
 
@@ -169,8 +171,39 @@ def delete_venue(venue_name):
 # query by status and booking date
 # if booking status false, allow for booking
 # otherwise, return message booking not created
-def create_booking():
-    pass
+def create_booking(artist_name, booking_date_str, venue_name):
+    artist = session.query(Artist).filter_by(artist_name=artist_name).first()
+
+    if not artist:
+        print(f"Artist: {artist_name} does not exist! Booking not created.")
+        return
+
+    booking_date = datetime.strptime(booking_date_str, "%Y-%m-%d")
+    venue = session.query(Venue).filter_by(venue_name=venue_name).first()
+
+    if not venue:
+        print(f"Venue: {venue_name} does not exist!")
+        return
+
+    existing_booking = (
+        session.query(Booking)
+        .filter_by(artist=artist, booking_date=booking_date)
+        .first()
+    )
+
+    if existing_booking:
+        print(f"Booking for {artist_name} already exists on {booking_date}")
+    else:
+        new_booking = Booking(
+            artist=artist,
+            status=True,
+            booking_date=booking_date,
+            venue=venue,
+        )
+        session.add(new_booking)
+        session.commit()
+
+        print(f"Booking created successfully. {artist_name} booked for {booking_date}")
 
 
 # query by booking_date
