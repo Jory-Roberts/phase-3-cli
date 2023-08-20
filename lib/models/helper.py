@@ -179,7 +179,7 @@ def create_booking(artist_name, booking_date_str, venue_name):
         print(f"Artist: {artist_name} does not exist! Booking not created.")
         return
 
-    booking_date = datetime.strptime(booking_date_str, "%Y-%m-%d")
+    booking_date = datetime.strptime(booking_date_str, "%Y-%m-%d").date()
     venue = session.query(Venue).filter_by(venue_name=venue_name).first()
 
     if not venue:
@@ -197,11 +197,9 @@ def create_booking(artist_name, booking_date_str, venue_name):
     else:
         new_booking = Booking(
             artist=artist,
-            artist_name=artist_name,
             status=True,
             booking_date=booking_date,
             venue=venue,
-            venue_name=venue_name,
         )
         session.add(new_booking)
         session.commit()
@@ -218,7 +216,7 @@ def cancel_booking(
     venue_name,
     booking_date_str,
 ):
-    booking_date = datetime.strptime(booking_date_str, "%Y-%m-%d")
+    booking_date = datetime.strptime(booking_date_str, "%Y-%m-%d").date()
 
     find_by_current_booking = (
         session.query(Booking)
