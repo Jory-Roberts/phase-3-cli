@@ -209,8 +209,6 @@ def create_booking(artist_name, booking_date_str, venue_name):
 
 # query by booking_date, artist name
 # remove booking, return message that confirmed
-# cancel_booking not working. unable to find entry
-## removed columns from booking table: artist_name, venue_name. redundant
 def cancel_booking(
     artist_name,
     venue_name,
