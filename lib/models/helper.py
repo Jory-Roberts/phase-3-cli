@@ -206,7 +206,7 @@ def create_booking(artist_name, booking_date_str, venue_name):
         print(f"Booking created successfully. {artist_name} booked for {booking_date}")
 
 
-# query by booking_date
+# query by booking_date, artist name
 # remove booking, return message that confirmed
 def cancel_booking():
     pass
