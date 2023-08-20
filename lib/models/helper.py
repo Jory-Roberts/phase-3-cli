@@ -197,9 +197,11 @@ def create_booking(artist_name, booking_date_str, venue_name):
     else:
         new_booking = Booking(
             artist=artist,
+            artist_name=artist_name,
             status=True,
             booking_date=booking_date,
             venue=venue,
+            venue_name=venue_name,
         )
         session.add(new_booking)
         session.commit()
@@ -209,20 +211,26 @@ def create_booking(artist_name, booking_date_str, venue_name):
 
 # query by booking_date, artist name
 # remove booking, return message that confirmed
-def cancel_booking(artist_name, booking_date_str, venue_name):
+# cancel_booking not working. unable to find entry
+## removed columns from booking table: artist_name, venue_name. redundant
+def cancel_booking(
+    artist_name,
+    venue_name,
+    booking_date_str,
+):
     booking_date = datetime.strptime(booking_date_str, "%Y-%m-%d")
 
     find_by_current_booking = (
         session.query(Booking)
-        .join(Artist)
-        .join(Venue)
+        .join(Artist, Artist.id == Booking.artist_id)
+        .join(Venue, Venue.id == Booking.venue_id)
         .filter(
             Artist.artist_name == artist_name,
-            Booking.booking_date == booking_date,
             Venue.venue_name == venue_name,
+            Booking.booking_date == booking_date,
         )
         .options(joinedload(Booking.artist), joinedload(Booking.venue))
-        .first()
+        .one_or_none()
     )
 
     if find_by_current_booking:
