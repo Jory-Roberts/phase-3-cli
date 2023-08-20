@@ -237,10 +237,3 @@ def cancel_booking(
         )
     else:
         print(f"Booking: {artist_name} not found for {booking_date} at {venue_name}.")
-
-
-# if true:
-# return message that venue is booked
-# otherwise, return message that venue is available
-def confirmed_booking():
-    pass
