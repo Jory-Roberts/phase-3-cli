@@ -1,4 +1,5 @@
 from models import Session, Artist, Venue, Booking
+from sqlalchemy.orm import joinedload
 from datetime import datetime
 
 session = Session()
@@ -208,8 +209,30 @@ def create_booking(artist_name, booking_date_str, venue_name):
 
 # query by booking_date, artist name
 # remove booking, return message that confirmed
-def cancel_booking():
-    pass
+def cancel_booking(artist_name, booking_date_str, venue_name):
+    booking_date = datetime.strptime(booking_date_str, "%Y-%m-%d")
+
+    find_by_current_booking = (
+        session.query(Booking)
+        .join(Artist)
+        .join(Venue)
+        .filter(
+            Artist.artist_name == artist_name,
+            Booking.booking_date == booking_date,
+            Venue.venue_name == venue_name,
+        )
+        .options(joinedload(Booking.artist), joinedload(Booking.venue))
+        .first()
+    )
+
+    if find_by_current_booking:
+        session.delete(find_by_current_booking)
+        session.commit()
+        print(
+            f"Booking: {artist_name} booked on {booking_date} at {venue_name} has been deleted."
+        )
+    else:
+        print(f"Booking: {artist_name} not found for {booking_date} at {venue_name}.")
 
 
 # if true:
