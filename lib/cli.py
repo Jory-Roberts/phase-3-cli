@@ -19,6 +19,8 @@ def user_menu():
         click.echo("3. Remove Artist Entry")
         click.echo("4. Artist Availability")
         click.echo("5. Venue Capacity")
+        click.echo("6. Create Venue Entry")
+        click.echo("7. Remove Venue Entry")
         click.echo("9. Exit")
 
         choice = input("Enter a number to select an option: ")
@@ -38,6 +40,12 @@ def user_menu():
         elif choice == "5":
             click.echo("Checking Venue Capacity...")
             check_venue_capacity()
+        elif choice == "6":
+            click.echo("Creating Venue Entry...")
+            create_new_venue()
+        elif choice == "7":
+            click.echo("Removing Venue Entry...")
+            delete_venue()
         elif choice == "9":
             click.echo("Exiting...")
             break
@@ -133,10 +141,43 @@ def artist_availability(artist_name, availability):
 def check_venue_capacity(venue_name):
     helper.check_venue_capacity(venue_name)
 
+
+@click.command()
+@click.option("--venue-name", prompt="Venue name", help="Enter the name of the venue.")
+@click.option(
+    "--venue-email", prompt="Venue email", help="Enter the email used by the venue."
+)
+@click.option(
+    "--venue-city", prompt="Venue city", help="Enter the city location of the venue."
+)
+@click.option(
+    "--venue-state", prompt="Venue state", help="Enter the state location of the venue."
+)
+@click.option(
+    "--venue-zip-code",
+    prompt="Venue zip code",
+    help="Enter the zip code location for the venue.",
+)
+@click.option("--capacity", prompt="Capacity", help="Enter the capacity of the venue.")
+def create_new_venue(
+    venue_name, venue_email, venue_city, venue_state, venue_zip_code, capacity
+):
+    helper.create_new_venue(
+        venue_name, venue_email, venue_city, venue_state, venue_zip_code, capacity
+    )
+
+
+@click.command()
+@click.option("--venue-name", prompt="Venue name", help="Enter the venue name.")
+def delete_venue(venue_name):
+    helper.delete_venue(venue_name)
+
     cli.add_command(create_artist_entry)
     cli.add_command(update_artist_contact)
     cli.add_command(remove_artist)
     cli.add_command(check_venue_capacity)
+    cli.add_command(create_new_venue)
+    cli.add_command(delete_venue)
 
 
 if __name__ == "__main__":
