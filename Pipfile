@@ -10,6 +10,7 @@ faker = "*"
 click = "*"
 ipdb = "*"
 prettytable = "*"
+termcolor = "*"
 
 [dev-packages]
 

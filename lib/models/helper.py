@@ -6,9 +6,9 @@ session = Session()
 
 
 # query by all artists
+# helper for artist table
 def get_all_artists():
-    artist_results = session.query(Artist).all()
-    return artist_results
+    return session.query(Artist).all()
 
 
 # query by all venues
