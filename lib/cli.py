@@ -130,9 +130,8 @@ def artist_availability(artist_name, availability):
 
 @click.command()
 @click.option("--venue-name", prompt="Venue name", help="Enter the name of the venue.")
-@click.option("--capacity", prompt="Venue capacity", help="Enter the venue capacity")
-def check_venue_capacity(venue_name, capacity):
-    helper.check_venue_capacity(venue_name, capacity)
+def check_venue_capacity(venue_name):
+    helper.check_venue_capacity(venue_name)
 
     cli.add_command(create_artist_entry)
     cli.add_command(update_artist_contact)
