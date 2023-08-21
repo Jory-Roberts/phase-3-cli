@@ -152,6 +152,8 @@ def create_bookings(artists, venues):
         booking = Booking(
             artist_id=artist.id,
             venue_id=venue.id,
+            artist_name=artist.artist_name,
+            venue_name=venue.venue_name,
             booking_date=booking_date,
             status=status,
         )

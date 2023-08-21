@@ -222,6 +222,8 @@ def create_booking(artist_name, booking_date_str, venue_name):
             status=True,
             booking_date=booking_date,
             venue=venue,
+            artist_name=artist_name,
+            venue_name=venue_name,
         )
         session.add(new_booking)
         session.commit()
