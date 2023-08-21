@@ -5,6 +5,24 @@ from datetime import datetime
 session = Session()
 
 
+# query by all artists
+def get_all_artists():
+    artist_results = session.query(Artist).all()
+    return artist_results
+
+
+# query by all venues
+def get_all_venues():
+    venue_results = session.query(Venue).all()
+    return venue_results
+
+
+# query by all bookings
+def get_all_bookings():
+    booking_results = session.query(Booking).all()
+    return booking_results
+
+
 ##query by artist name
 ## if artist name available, create new artist entry
 def create_artist_entry(
