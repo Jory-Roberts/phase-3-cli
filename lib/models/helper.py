@@ -106,7 +106,7 @@ def check_venue_capacity(venue_name):
 
         print(f"Venue: {venue_name} has {venue.capacity} seats available for seating")
     else:
-        print(f"Venue: Unable to find {venue_name} seating provided")
+        print(f"Venue: Unable to find {venue_name} provided")
 
 
 ##query venue by name and capacity
