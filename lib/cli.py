@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 import click
 from models import Artist, Booking, Venue, Session, helper
-from models.display_tables import artist_table
-from models.display_tables import venue_table
+from models.display_tables import artist_table, venue_table, booking_table
 
 session = Session()
 
@@ -38,6 +37,9 @@ def user_menu():
         elif choice == "2":
             click.echo("Displaying Venue Table...")
             display_venue_table()
+        elif choice == "3":
+            click.echo("Displaying Booking Table...")
+            display_booking_table()
         elif choice == "4":
             click.echo("Creating Artist Entry...")
             create_artist_entry()
@@ -81,6 +83,13 @@ def display_artist_table():
 def display_venue_table():
     venue_results = helper.get_all_venues()
     table = venue_table(venue_results)
+    click.echo(table)
+
+
+@click.command()
+def display_booking_table():
+    booking_results = helper.get_all_bookings()
+    table = booking_table(booking_results)
     click.echo(table)
 
 
