@@ -8,19 +8,25 @@ session = Session()
 # query by all artists
 # helper for artist table
 def get_all_artists():
-    return session.query(Artist).all()
+    artists = session.query(Artist).all()
+    session.close()
+    return artists
 
 
 # query by all venues
+# helper for venues table
 def get_all_venues():
-    venue_results = session.query(Venue).all()
-    return venue_results
+    venues = session.query(Venue).all()
+    session.close()
+    return venues
 
 
 # query by all bookings
+# helper for booking table
 def get_all_bookings():
-    booking_results = session.query(Booking).all()
-    return booking_results
+    bookings = session.query(Booking).all()
+    session.close()
+    return bookings
 
 
 ##query by artist name

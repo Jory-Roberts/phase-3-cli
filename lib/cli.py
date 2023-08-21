@@ -2,6 +2,9 @@
 import click
 from models import Artist, Booking, Venue, Session, helper
 from models.display_tables import artist_table
+from models.display_tables import venue_table
+
+session = Session()
 
 
 @click.group(invoke_without_command=True)
@@ -16,49 +19,53 @@ def user_menu():
     while True:
         click.echo("\nOptions: ")
         click.echo("1. Display Artist Table")
-        click.echo("2. Create Artist Entry")
-        click.echo("3. Update Artist Contact Information")
-        click.echo("4. Remove Artist Entry")
-        click.echo("5. Artist Availability")
-        click.echo("6. Venue Capacity")
-        click.echo("7. Create Venue Entry")
-        click.echo("8. Remove Venue Entry")
-        click.echo("9. Create Booking Entry")
-        click.echo("10. Cancel Booking")
-        click.echo("11. Exit")
+        click.echo("2. Display Venue Table")
+        click.echo("4. Create Artist Entry")
+        click.echo("5. Update Artist Contact Information")
+        click.echo("6. Remove Artist Entry")
+        click.echo("7. Artist Availability")
+        click.echo("8. Venue Capacity")
+        click.echo("9. Create Venue Entry")
+        click.echo("10. Remove Venue Entry")
+        click.echo("11. Create Booking Entry")
+        click.echo("12. Cancel Booking")
+        click.echo("13. Exit")
 
         choice = input("Enter a number to select an option: ")
         if choice == "1":
-            click.echo("Displaying Artist Table")
+            click.echo("Displaying Artist Table...")
             display_artist_table()
         elif choice == "2":
+            click.echo("Displaying Venue Table...")
+            display_venue_table()
+        elif choice == "4":
             click.echo("Creating Artist Entry...")
             create_artist_entry()
-        elif choice == "3":
+        elif choice == "5":
             click.echo("Updating Artist Contact Information...")
             update_artist_contact()
-        elif choice == "4":
+        elif choice == "6":
             click.echo("Removing Artist Entry...")
             remove_artist()
-        elif choice == "5":
+        elif choice == "7":
             click.echo("Checking Artist Availability...")
             artist_availability()
-        elif choice == "6":
+        elif choice == "8":
             click.echo("Checking Venue Capacity...")
             check_venue_capacity()
-        elif choice == "7":
+        elif choice == "9":
             click.echo("Creating Venue Entry...")
             create_new_venue()
-        elif choice == "8":
+        elif choice == "10":
             click.echo("Removing Venue Entry...")
             delete_venue()
-        elif choice == "9":
+        elif choice == "11":
             click.echo("Creating Booking Entry...")
             create_booking()
-        elif choice == "10":
+        elif choice == "12":
             click.echo("Removing Booking Entry...")
             cancel_booking()
-        elif choice == "11":
+        elif choice == "13":
             click.echo("Exiting...")
             break
 
@@ -67,6 +74,13 @@ def user_menu():
 def display_artist_table():
     artist_results = helper.get_all_artists()
     table = artist_table(artist_results)
+    click.echo(table)
+
+
+@click.command()
+def display_venue_table():
+    venue_results = helper.get_all_venues()
+    table = venue_table(venue_results)
     click.echo(table)
 
 
@@ -214,6 +228,7 @@ def cancel_booking(artist_name, venue_name, booking_date_str):
     helper.cancel_booking(artist_name, venue_name, booking_date_str)
 
     cli.add_command(display_artist_table)
+    cli.add_command(display_venue_table)
     cli.add_command(create_artist_entry)
     cli.add_command(update_artist_contact)
     cli.add_command(remove_artist)
@@ -225,4 +240,7 @@ def cancel_booking(artist_name, venue_name, booking_date_str):
 
 
 if __name__ == "__main__":
-    cli()
+    try:
+        cli()
+    finally:
+        session.close()
