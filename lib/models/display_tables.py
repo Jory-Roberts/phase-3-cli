@@ -44,4 +44,19 @@ def venue_table(venues):
 
 
 def booking_table(bookings):
-    pass
+    headers = ("ID", "Artist ID", "Venue ID", "Artist", "Venue", "Booking")
+    table.field_names = [colored(header, "blue") for header in headers]
+
+    for booking in bookings:
+        table.add_row(
+            [
+                colored(booking.id, "green"),
+                colored(booking.artist.id, "green"),
+                colored(booking.venue_id, "green"),
+                colored(booking.artist_name, "red"),
+                colored(booking.venue_name, "magenta"),
+                colored(booking.booking_date, "yellow"),
+            ]
+        )
+
+    print(table)

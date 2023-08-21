@@ -19,6 +19,7 @@ def user_menu():
         click.echo("\nOptions: ")
         click.echo("1. Display Artist Table")
         click.echo("2. Display Venue Table")
+        click.echo("3. Display Booking Table")
         click.echo("4. Create Artist Entry")
         click.echo("5. Update Artist Contact Information")
         click.echo("6. Remove Artist Entry")
@@ -238,6 +239,7 @@ def cancel_booking(artist_name, venue_name, booking_date_str):
 
     cli.add_command(display_artist_table)
     cli.add_command(display_venue_table)
+    cli.add_command(display_booking_table)
     cli.add_command(create_artist_entry)
     cli.add_command(update_artist_contact)
     cli.add_command(remove_artist)

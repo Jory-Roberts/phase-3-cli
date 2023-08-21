@@ -9,7 +9,6 @@ session = Session()
 # helper for artist table
 def get_all_artists():
     artists = session.query(Artist).all()
-    session.close()
     return artists
 
 
@@ -17,7 +16,6 @@ def get_all_artists():
 # helper for venues table
 def get_all_venues():
     venues = session.query(Venue).all()
-    session.close()
     return venues
 
 
@@ -25,7 +23,6 @@ def get_all_venues():
 # helper for booking table
 def get_all_bookings():
     bookings = session.query(Booking).all()
-    session.close()
     return bookings
 
 
