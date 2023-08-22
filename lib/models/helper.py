@@ -103,18 +103,20 @@ def remove_artist(artist_name):
 
 ##filter by availability date and artist name
 ## if date matches return message available
-def artist_availability(artist_name, availability):
+def artist_availability(artist_name):
     check_artist_availability = (
-        session.query(Artist)
-        .filter_by(artist_name=artist_name, availability=availability)
-        .first()
+        session.query(Artist).filter_by(artist_name=artist_name).first()
     )
 
     if check_artist_availability:
         session.commit()
-        print(f"Artist: {artist_name} is available on {availability}")
+        print(
+            f"Artist: {artist_name} is available on {check_artist_availability.availability}"
+        )
     else:
-        print(f"Artist: {artist_name} is not available on {availability}")
+        print(
+            f"Artist: {artist_name} is not available on {check_artist_availability.availability}"
+        )
 
 
 ## query venue by name and capacity

@@ -170,13 +170,8 @@ def remove_artist(artist_name):
 @click.option(
     "--artist-name", prompt="Artist name", help="Enter the name of the Artist."
 )
-@click.option(
-    "--availability",
-    prompt="Artist availability",
-    help="Enter the booking availability for the Artist",
-)
-def artist_availability(artist_name, availability):
-    helper.artist_availability(artist_name, availability)
+def artist_availability(artist_name):
+    helper.artist_availability(artist_name)
 
 
 @click.command()
