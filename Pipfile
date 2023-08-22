@@ -11,6 +11,7 @@ click = "*"
 ipdb = "*"
 prettytable = "*"
 termcolor = "*"
+pyfiglet = "*"
 
 [dev-packages]
 

@@ -6,12 +6,12 @@ from models.display_tables import artist_table, venue_table, booking_table
 session = Session()
 
 
-@click.group(invoke_without_command=True)
-@click.pass_context
-def cli(ctx):
-    """CLI for managing venue and artist information"""
-    if ctx.invoked_subcommand is None:
-        user_menu()
+# @click.group(invoke_without_command=True)
+# @click.pass_context
+@click.group()
+def cli():
+    # if ctx.invoked_subcommand is None:
+    pass
 
 
 def user_menu():
@@ -232,21 +232,22 @@ def create_booking(artist_name, booking_date_str, venue_name):
 def cancel_booking(artist_name, venue_name, booking_date_str):
     helper.cancel_booking(artist_name, venue_name, booking_date_str)
 
-    cli.add_command(display_artist_table)
-    cli.add_command(display_venue_table)
-    cli.add_command(display_booking_table)
-    cli.add_command(create_artist_entry)
-    cli.add_command(update_artist_contact)
-    cli.add_command(remove_artist)
-    cli.add_command(check_venue_capacity)
-    cli.add_command(create_new_venue)
-    cli.add_command(delete_venue)
-    cli.add_command(create_booking)
-    cli.add_command(cancel_booking)
+
+cli.add_command(display_artist_table)
+cli.add_command(display_venue_table)
+cli.add_command(display_booking_table)
+cli.add_command(create_artist_entry)
+cli.add_command(update_artist_contact)
+cli.add_command(remove_artist)
+cli.add_command(check_venue_capacity)
+cli.add_command(create_new_venue)
+cli.add_command(delete_venue)
+cli.add_command(create_booking)
+cli.add_command(cancel_booking)
 
 
 if __name__ == "__main__":
     try:
-        cli()
+        user_menu()
     finally:
         session.close()
