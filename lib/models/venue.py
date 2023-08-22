@@ -13,7 +13,7 @@ class Venue(Base):
     venue_zip_code = Column(String)
     capacity = Column(Integer)
 
-    bookings = relationship("Booking", backref="venue")
+    bookings = relationship("Booking", back_populates="venue")
 
     def __repr__(self):
         return (

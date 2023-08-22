@@ -53,8 +53,8 @@ def booking_table(bookings):
                 colored(booking.id, "green"),
                 colored(booking.artist.id, "green"),
                 colored(booking.venue_id, "green"),
-                colored(booking.artist_name, "red"),
-                colored(booking.venue_name, "magenta"),
+                colored(booking.artist.artist_name, "red"),
+                colored(booking.venue.venue_name, "magenta"),
                 colored(booking.booking_date, "yellow"),
             ]
         )

@@ -152,8 +152,6 @@ def create_bookings(artists, venues):
         booking = Booking(
             artist_id=artist.id,
             venue_id=venue.id,
-            artist_name=artist.artist_name,
-            venue_name=venue.venue_name,
             booking_date=booking_date,
             status=status,
         )
@@ -166,8 +164,8 @@ def create_bookings(artists, venues):
 
 if __name__ == "__main__":
     delete_records()
-    artists = create_artists()
     venues = create_venues()
+    artists = create_artists()
     bookings = create_bookings(artists, venues)
 
 

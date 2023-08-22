@@ -209,7 +209,7 @@ def create_booking(artist_name, booking_date_str, venue_name):
 
     existing_booking = (
         session.query(Booking)
-        .filter_by(artist=artist, booking_date=booking_date)
+        .filter_by(artist_id=artist.id, booking_date=booking_date)
         .first()
     )
 
@@ -221,8 +221,6 @@ def create_booking(artist_name, booking_date_str, venue_name):
             status=True,
             booking_date=booking_date,
             venue=venue,
-            artist_name=artist_name,
-            venue_name=venue_name,
         )
         session.add(new_booking)
         session.commit()
@@ -241,14 +239,11 @@ def cancel_booking(
 
     find_by_current_booking = (
         session.query(Booking)
-        .join(Artist, Artist.id == Booking.artist_id)
-        .join(Venue, Venue.id == Booking.venue_id)
         .filter(
-            Artist.artist_name == artist_name,
-            Venue.venue_name == venue_name,
+            Booking.artist.has(artist_name=artist_name),
+            Booking.venue.has(venue_name=venue_name),
             Booking.booking_date == booking_date,
         )
-        .options(joinedload(Booking.artist), joinedload(Booking.venue))
         .one_or_none()
     )
 

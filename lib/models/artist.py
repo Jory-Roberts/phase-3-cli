@@ -18,7 +18,7 @@ class Artist(Base):
     genre = Column(String)
     availability = Column(Date)
 
-    bookings = relationship("Booking", backref="artist")
+    bookings = relationship("Booking", back_populates="artist")
 
     def __repr__(self):
         return (
