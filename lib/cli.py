@@ -1,20 +1,23 @@
 #!/usr/bin/env python
 import click
+import pyfiglet
+from termcolor import colored
 from models import Artist, Booking, Venue, Session, helper
 from models.display_tables import artist_table, venue_table, booking_table
+
 
 session = Session()
 
 
-# @click.group(invoke_without_command=True)
-# @click.pass_context
 @click.group()
 def cli():
-    # if ctx.invoked_subcommand is None:
     pass
 
 
 def user_menu():
+    banner = pyfiglet.figlet_format("Welcome!", font="slant")
+    color_banner = colored(banner, "green")
+    click.echo(color_banner)
     while True:
         click.echo("\nOptions: ")
         click.echo("1. Display Artist Table")
