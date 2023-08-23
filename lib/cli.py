@@ -2,102 +2,95 @@
 import click
 import pyfiglet
 from termcolor import colored
-from models import Artist, Booking, Venue, Session, helper
+from models import Session, helper
 from models.display_tables import artist_table, venue_table, booking_table
 
 
 session = Session()
 
 
-@click.group()
-def cli():
-    pass
-
-
-def user_menu():
-    banner = pyfiglet.figlet_format("Welcome!", font="slant")
-    color_banner = colored(banner, "green")
-    click.echo(color_banner)
+def main():
     while True:
-        click.echo("\nOptions: ")
-        click.echo("1. Display Artist Table")
-        click.echo("2. Display Venue Table")
-        click.echo("3. Display Booking Table")
-        click.echo("4. Create Artist Entry")
-        click.echo("5. Update Artist Contact Information")
-        click.echo("6. Remove Artist Entry")
-        click.echo("7. Artist Availability")
-        click.echo("8. Venue Capacity")
-        click.echo("9. Create Venue Entry")
-        click.echo("10. Remove Venue Entry")
-        click.echo("11. Create Booking Entry")
-        click.echo("12. Cancel Booking")
-        click.echo("13. Exit")
+        try:
+            banner = pyfiglet.figlet_format("Welcome!", font="slant")
+            color_banner = colored(banner, "green")
+            click.echo(color_banner)
 
-        choice = input("Enter a number to select an option: ")
-        if choice == "1":
-            click.echo("Displaying Artist Table...")
-            display_artist_table()
-        elif choice == "2":
-            click.echo("Displaying Venue Table...")
-            display_venue_table()
-        elif choice == "3":
-            click.echo("Displaying Booking Table...")
-            display_booking_table()
-        elif choice == "4":
-            click.echo("Creating Artist Entry...")
-            create_artist_entry()
-        elif choice == "5":
-            click.echo("Updating Artist Contact Information...")
-            update_artist_contact()
-        elif choice == "6":
-            click.echo("Removing Artist Entry...")
-            remove_artist()
-        elif choice == "7":
-            click.echo("Checking Artist Availability...")
-            artist_availability()
-        elif choice == "8":
-            click.echo("Checking Venue Capacity...")
-            check_venue_capacity()
-        elif choice == "9":
-            click.echo("Creating Venue Entry...")
-            create_new_venue()
-        elif choice == "10":
-            click.echo("Removing Venue Entry...")
-            delete_venue()
-        elif choice == "11":
-            click.echo("Creating Booking Entry...")
-            create_booking()
-        elif choice == "12":
-            click.echo("Removing Booking Entry...")
-            cancel_booking()
-        elif choice == "13":
-            click.echo("Exiting...")
-            break
+            click.echo("\nOptions: ")
+            click.echo("1. Display Artist, Venue and Booking Tables")
+            click.echo("2. Create Artist Entry")
+            click.echo("3. Update Artist Contact Information")
+            click.echo("4. Remove Artist Entry")
+            click.echo("5. Artist Availability")
+            click.echo("6. Venue Capacity")
+            click.echo("7. Create Venue Entry")
+            click.echo("8. Remove Venue Entry")
+            click.echo("9. Create Booking Entry")
+            click.echo("10. Cancel Booking")
+
+            choice = click.prompt(
+                "Enter a number to select an option or 'q' to quit", type=str
+            )
+
+            if choice == "q":
+                click.echo("Exiting...")
+                break
+            elif choice == "1":
+                click.echo("Displaying Artist, Venue and Booking...")
+                display_artist_table()
+                display_venue_table()
+                display_booking_table()
+            elif choice == "2":
+                click.echo("Creating Artist Entry...")
+                create_artist_entry()
+            elif choice == "3":
+                click.echo("Updating Artist Contact Information...")
+                update_artist_contact()
+            elif choice == "4":
+                click.echo("Removing Artist Entry...")
+                remove_artist()
+            elif choice == "5":
+                click.echo("Checking Artist Availability...")
+                artist_availability()
+            elif choice == "6":
+                click.echo("Checking Venue Capacity...")
+                check_venue_capacity()
+            elif choice == "7":
+                click.echo("Creating Venue Entry...")
+                create_new_venue()
+            elif choice == "8":
+                click.echo("Removing Venue Entry...")
+                delete_venue()
+            elif choice == "9":
+                click.echo("Creating Booking Entry...")
+                create_booking()
+            elif choice == "10":
+                click.echo("Removing Booking Entry...")
+                cancel_booking()
+            else:
+                click.echo("Invalid choice. Try again")
+        except Exception as e:
+            click.echo(f"An error occured {e}")
 
 
-@click.command()
 def display_artist_table():
     artist_results = helper.get_all_artists()
     table = artist_table(artist_results)
     click.echo(table)
 
 
-@click.command()
 def display_venue_table():
     venue_results = helper.get_all_venues()
     table = venue_table(venue_results)
     click.echo(table)
 
 
-@click.command()
 def display_booking_table():
     booking_results = helper.get_all_bookings()
     table = booking_table(booking_results)
     click.echo(table)
 
 
-@click.command()
 @click.option("--artist-name", prompt="Artist Name", help="Name of the Artist.")
 @click.option("--email", prompt="Artist email", help="Email for the Artist.")
 @click.option(
@@ -143,7 +136,6 @@ def create_artist_entry(
     )
 
 
-@click.command()
 @click.option(
     "--artist-name", prompt="Artist name", help="Enter the name of the Artist"
 )
@@ -161,7 +153,6 @@ def update_artist_contact(artist_name, new_email, new_phone_number):
     helper.update_artist_contact(artist_name, new_email, new_phone_number)
 
 
-@click.command()
 @click.option(
     "--artist-name", prompt="Artist name", help="Enter the name of the Artist"
 )
@@ -169,7 +160,6 @@ def remove_artist(artist_name):
     helper.remove_artist(artist_name)
 
 
-@click.command()
 @click.option(
     "--artist-name", prompt="Artist name", help="Enter the name of the Artist."
 )
@@ -177,13 +167,11 @@ def artist_availability(artist_name):
     helper.artist_availability(artist_name)
 
 
-@click.command()
 @click.option("--venue-name", prompt="Venue name", help="Enter the name of the Venue.")
 def check_venue_capacity(venue_name):
     helper.check_venue_capacity(venue_name)
 
 
-@click.command()
 @click.option("--venue-name", prompt="Venue name", help="Enter the name of the Venue.")
 @click.option(
     "--venue-email", prompt="Venue email", help="Enter the email used by the Venue."
@@ -208,13 +196,11 @@ def create_new_venue(
     )
 
 
-@click.command()
 @click.option("--venue-name", prompt="Venue name", help="Enter the venue Vame.")
 def delete_venue(venue_name):
     helper.delete_venue(venue_name)
 
 
-@click.command()
 @click.option(
     "--artist-name", prompt="Artist name", help="Enter the name of the Artist."
 )
@@ -229,7 +215,6 @@ def create_booking(artist_name, booking_date_str, ticket_price, venue_name):
     helper.create_booking(artist_name, booking_date_str, ticket_price, venue_name)
 
 
-@click.command()
 @click.option(
     "--artist-name", prompt="Artist name", help="Enter the name of the Artist"
 )
@@ -239,21 +224,18 @@ def cancel_booking(artist_name, venue_name, booking_date_str):
     helper.cancel_booking(artist_name, venue_name, booking_date_str)
 
 
-cli.add_command(display_artist_table)
-cli.add_command(display_venue_table)
-cli.add_command(display_booking_table)
-cli.add_command(create_artist_entry)
-cli.add_command(update_artist_contact)
-cli.add_command(remove_artist)
-cli.add_command(check_venue_capacity)
-cli.add_command(create_new_venue)
-cli.add_command(delete_venue)
-cli.add_command(create_booking)
-cli.add_command(cancel_booking)
+# cli.add_command(display_artist_table)
+# cli.add_command(display_venue_table)
+# cli.add_command(display_booking_table)
+# cli.add_command(create_artist_entry)
+# cli.add_command(update_artist_contact)
+# cli.add_command(remove_artist)
+# cli.add_command(check_venue_capacity)
+# cli.add_command(create_new_venue)
+# cli.add_command(delete_venue)
+# cli.add_command(create_booking)
+# cli.add_command(cancel_booking)
 
 
 if __name__ == "__main__":
-    try:
-        user_menu()
-    finally:
-        session.close()
+    main()

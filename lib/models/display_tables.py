@@ -2,12 +2,11 @@ from prettytable import PrettyTable
 from termcolor import colored
 
 
-table = PrettyTable()
-table.max_width = 50
-
-
 # display only crucial needed user information
 def artist_table(artists):
+    table = PrettyTable()
+    table.max_width = 50
+
     headers = ["ID", "Name", "Email", "Genre", "Availability"]
     table.field_names = [colored(header, "blue") for header in headers]
 
@@ -26,7 +25,10 @@ def artist_table(artists):
 
 
 def venue_table(venues):
-    headers = ("ID", "Name", "Email", "City", "Capacity")
+    table = PrettyTable()
+    table.max_width = 50
+
+    headers = ["ID", "Name", "Email", "City", "Capacity"]
     table.field_names = [colored(header, "blue") for header in headers]
 
     for venue in venues:
@@ -44,10 +46,14 @@ def venue_table(venues):
 
 
 def booking_table(bookings):
-    headers = ("ID", "Artist", "Venue", "Booking", "Price", "Status")
+    table = PrettyTable()
+    table.max_width = 50
+
+    headers = ["ID", "Artist", "Venue", "Booking", "Price", "Status"]
     table.field_names = [colored(header, "blue") for header in headers]
 
     for booking in bookings:
+        # print(f"Booking: {booking}")
         table.add_row(
             [
                 colored(booking.id, "green"),
