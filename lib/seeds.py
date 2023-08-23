@@ -3,6 +3,7 @@ from models import Artist, Venue, Booking
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from datetime import datetime, timedelta
+from random import choice
 
 engine = create_engine("sqlite:///db/artist_venue.db")
 Session = sessionmaker(bind=engine)
@@ -148,17 +149,21 @@ def create_bookings(artists, venues):
         artist = random.choice(artists)
         venue = random.choice(venues)
         booking_date = fake.date_between_dates(date_start=start_date, date_end=end_date)
-        status = fake.boolean(chance_of_getting_true=50)
+        ticket_price = round(random.uniform(20, 200), 2)
+        status = choice(["Confirmed", "Pending"])
+
         booking = Booking(
             artist_id=artist.id,
             venue_id=venue.id,
             booking_date=booking_date,
+            ticket_price=ticket_price,
             status=status,
         )
 
         session.add(booking)
         session.commit()
         bookings.append(booking)
+
     return bookings
 
 

@@ -221,9 +221,12 @@ def delete_venue(venue_name):
 @click.option(
     "--booking-date-str", prompt="Booking date", help="Enter the date of the Booking."
 )
+@click.option(
+    "--ticket-price", prompt="Ticket price", help="Enter the price of the ticket."
+)
 @click.option("--venue-name", prompt="Venue name", help="Enter the name of the Venue.")
-def create_booking(artist_name, booking_date_str, venue_name):
-    helper.create_booking(artist_name, booking_date_str, venue_name)
+def create_booking(artist_name, booking_date_str, ticket_price, venue_name):
+    helper.create_booking(artist_name, booking_date_str, ticket_price, venue_name)
 
 
 @click.command()

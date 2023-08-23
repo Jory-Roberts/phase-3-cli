@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Boolean, Integer, ForeignKey, Date
+from sqlalchemy import Column, String, Float, Integer, ForeignKey, Date
 from sqlalchemy.orm import backref, relationship
 from .base import Base
 
@@ -9,7 +9,8 @@ class Booking(Base):
     artist_id = Column(Integer, ForeignKey("artist.id"))
     venue_id = Column(Integer, ForeignKey("venue.id"))
     booking_date = Column(Date)
-    status = Column(Boolean)
+    ticket_price = Column(Float)
+    status = Column(String)
 
     artist = relationship("Artist", back_populates="bookings")
     venue = relationship("Venue", back_populates="bookings")

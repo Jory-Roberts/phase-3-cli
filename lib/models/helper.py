@@ -1,5 +1,4 @@
 from models import Session, Artist, Venue, Booking
-from sqlalchemy.orm import joinedload
 from datetime import datetime
 
 session = Session()
@@ -193,7 +192,9 @@ def delete_venue(venue_name):
 # query by status and booking date
 # if booking status false, allow for booking
 # otherwise, return message booking not created
-def create_booking(artist_name, booking_date_str, venue_name):
+def create_booking(
+    artist_name, booking_date_str, ticket_price, venue_name, status="Confirmed"
+):
     artist = session.query(Artist).filter_by(artist_name=artist_name).first()
 
     if not artist:
@@ -218,9 +219,10 @@ def create_booking(artist_name, booking_date_str, venue_name):
     else:
         new_booking = Booking(
             artist=artist,
-            status=True,
             booking_date=booking_date,
+            ticket_price=ticket_price,
             venue=venue,
+            status=status,
         )
         session.add(new_booking)
         session.commit()
