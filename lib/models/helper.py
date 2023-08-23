@@ -231,6 +231,18 @@ def create_booking(
 
 
 # query by booking_date, artist name
+# update status from "Pending" to "Confirmed" or vice versa
+def update_booking_status():
+    pass
+
+
+# query by booking_date
+# update price
+def update_ticket_price():
+    pass
+
+
+# query by booking_date, artist name
 # remove booking, return message that confirmed
 def cancel_booking(
     artist_name,
