@@ -232,8 +232,31 @@ def create_booking(
 
 # query by booking_date, artist name
 # update status from "Pending" to "Confirmed" or vice versa
-def update_booking_status():
-    pass
+def update_booking_status(artist_name, booking_date_str, new_status):
+    artist = session.query(Artist).filter_by(artist_name=artist_name).first()
+
+    booking_date = datetime.strptime(booking_date_str, "%Y-%m-%d").date()
+
+    if artist:
+        booking = (
+            session.query(Booking)
+            .filter(
+                Booking.artist_id == artist.id, Booking.booking_date == booking_date
+            )
+            .first()
+        )
+
+        if booking:
+            booking.status = new_status
+            session.commit()
+
+        print(
+            f"Status: {new_status}. Status updated successfully for {artist_name} on {booking_date_str}"
+        )
+    else:
+        print(
+            f"Status: Status not updated. {artist_name} booking on {booking_date_str} not found"
+        )
 
 
 # query by booking_date
