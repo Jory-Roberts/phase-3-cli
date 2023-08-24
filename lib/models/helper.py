@@ -1,9 +1,31 @@
-from models import Session, Artist, Venue, Booking
+from models import Session, Artist, Venue, Booking, validation
 from datetime import datetime
+
 
 import click
 
 session = Session()
+
+
+# helper for validating input
+def is_valid_user_input(**kwargs):
+    is_valid = True
+
+    if "email" in kwargs and not validation.Validation.email(kwargs["email"]):
+        click.echo("\nInvalid email format! example@example.com format expected.")
+        is_valid = False
+
+    if "phone_number" in kwargs and not validation.Validation.phone_number(
+        kwargs["phone_number"]
+    ):
+        click.echo("\nInvalid phone number! XXX-XXX-XXXX format expected.")
+        is_valid = False
+
+    if "date" in kwargs and not validation.Validation.date(kwargs["date"]):
+        click.echo("\nInvalid date! YYYY-MM-DD format expected.")
+        is_valid = False
+
+    return is_valid
 
 
 # query by all artists
@@ -40,6 +62,13 @@ def create_artist_entry():
     genre = click.prompt("Genre")
     availability_str = click.prompt("Availability")
 
+    if not is_valid_user_input(
+        email=email,
+        phone_number=phone_number,
+        date=availability_str,
+    ):
+        return
+
     existing_artist = session.query(Artist).filter_by(artist_name=artist_name).first()
 
     if existing_artist is None:
@@ -71,6 +100,9 @@ def update_artist_contact():
     artist_name = click.prompt("Artist Name")
     new_email = click.prompt("Email")
     new_phone_number = click.prompt("Phone Number")
+
+    if not is_valid_user_input(email=new_email, phone_number=new_phone_number):
+        return
 
     update_existing_artist = (
         session.query(Artist).filter_by(artist_name=artist_name).first()
@@ -185,6 +217,9 @@ def create_new_venue():
     venue_zip_code = click.prompt("Zip")
     capacity = click.prompt("Capacity")
 
+    if not is_valid_user_input(email=venue_email):
+        return
+
     existing_venue = session.query(Venue).filter_by(venue_name=venue_name).first()
 
     if existing_venue is None:
@@ -235,6 +270,9 @@ def create_booking():
     status = click.prompt("Status")
     artist = session.query(Artist).filter_by(artist_name=artist_name).first()
 
+    if not is_valid_user_input(date=booking_date_str):
+        return
+
     if not artist:
         print(f"\nArtist: {artist_name} does not exist! Booking not created.")
         return
@@ -277,6 +315,9 @@ def update_booking_status():
     booking_date_str = click.prompt("Booking Date (YYYY-MM-DD)")
     new_status = click.prompt("New Status")
 
+    if not is_valid_user_input(date=booking_date_str):
+        return
+
     artist = session.query(Artist).filter_by(artist_name=artist_name).first()
 
     booking_date = datetime.strptime(booking_date_str, "%Y-%m-%d").date()
@@ -309,6 +350,9 @@ def update_ticket_price():
     artist_name = click.prompt("Artist Name")
     booking_date_str = click.prompt("Booking Date (YYYY-MM-DD)")
     new_price = click.prompt("New Ticket Price")
+
+    if not is_valid_user_input(date=booking_date_str):
+        return
 
     artist = session.query(Artist).filter_by(artist_name=artist_name).first()
     if not artist:
@@ -346,6 +390,9 @@ def cancel_booking():
     artist_name = click.prompt("Artist Name")
     venue_name = click.prompt("Venue Name")
     booking_date_str = click.prompt("Booking Date")
+
+    if not is_valid_user_input(date=booking_date_str):
+        return
 
     booking_date = datetime.strptime(booking_date_str, "%Y-%m-%d").date()
 
