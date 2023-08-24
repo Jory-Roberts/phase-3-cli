@@ -92,7 +92,7 @@ def update_artist_contact():
 
 
 # query by artist name
-# if name matches remove
+# if name matches remove artist and associated bookings
 def remove_artist():
     artist_name = click.prompt("Enter the Artist Name")
     remove_current_artist = (
@@ -205,7 +205,7 @@ def create_new_venue():
 
 
 # filter by venue name
-# if venue available, remove venue
+# if venue available, remove venue and associated bookings
 def delete_venue():
     venue_name = click.prompt("Venue Name")
     venue_to_delete = session.query(Venue).filter_by(venue_name=venue_name).first()
