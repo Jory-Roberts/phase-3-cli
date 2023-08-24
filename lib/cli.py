@@ -15,6 +15,24 @@ def welcome_banner():
     click.echo(color_banner)
 
 
+def artist_banner():
+    banner = pyfiglet.figlet_format("Artist", font="slant")
+    color_banner = colored(banner, "red")
+    click.echo(color_banner)
+
+
+def venue_banner():
+    banner = pyfiglet.figlet_format("Venue", font="slant")
+    color_banner = colored(banner, "blue")
+    click.echo(color_banner)
+
+
+def booking_banner():
+    banner = pyfiglet.figlet_format("Booking", font="slant")
+    color_banner = colored(banner, "yellow")
+    click.echo(color_banner)
+
+
 def display_artist_table():
     artist_results = helper.get_all_artists()
     table = artist_table(artist_results)
@@ -44,11 +62,13 @@ def main():
             click.echo("4. Remove Artist Entry")
             click.echo("5. Artist Availability")
             click.echo("6. Venue Capacity")
-            click.echo("7. Create Venue Entry")
-            click.echo("8. Remove Venue Entry")
-            click.echo("9. Create Booking Entry")
-            click.echo("10. Update Booking Status")
-            click.echo("11. Cancel Booking")
+            click.echo("7. Update Venue Capacity")
+            click.echo("8. Create Venue Entry")
+            click.echo("9. Remove Venue Entry")
+            click.echo("10. Create Booking Entry")
+            click.echo("11. Update Booking Status")
+            click.echo("12. Update Ticket Price")
+            click.echo("13. Cancel Booking")
 
             choice = click.prompt(
                 "Enter a number to select an option or 'q' to quit", type=str
@@ -59,54 +79,78 @@ def main():
                 break
 
             elif choice == "1":
-                click.echo("Displaying Artist, Venue and Booking...")
+                click.echo("\nDisplaying Artist, Venue and Booking...")
+                artist_banner()
                 display_artist_table()
+                venue_banner()
                 display_venue_table()
+                booking_banner()
                 display_booking_table()
 
             elif choice == "2":
-                click.echo("Creating Artist Entry...")
+                click.echo("\nCreating Artist Entry...")
+                artist_banner()
                 helper.create_artist_entry()
 
             elif choice == "3":
-                click.echo("Updating Artist Contact Information...")
+                click.echo("\nUpdating Artist Contact Information...")
+                artist_banner()
                 helper.update_artist_contact()
 
             elif choice == "4":
-                click.echo("Removing Artist Entry...")
+                click.echo("\nRemoving Artist Entry...")
+                artist_banner()
                 helper.remove_artist()
 
             elif choice == "5":
-                click.echo("Checking Artist Availability...")
+                click.echo("\nChecking Artist Availability...")
+                artist_banner()
                 helper.artist_availability()
 
             elif choice == "6":
-                click.echo("Checking Venue Capacity...")
+                click.echo("\nChecking Venue Capacity...")
+                venue_banner()
                 helper.check_venue_capacity()
 
             elif choice == "7":
-                click.echo("Creating Venue Entry...")
-                helper.create_new_venue()
+                click.echo("\nUpdating Venue Capacity")
+                venue_banner()
+                helper.update_venue_capacity()
 
             elif choice == "8":
-                click.echo("Removing Venue Entry...")
-                helper.delete_venue()
+                click.echo("\nCreating Venue Entry...")
+                venue_banner()
+                helper.create_new_venue()
 
             elif choice == "9":
-                click.echo("Creating Booking Entry...")
-                helper.create_booking()
+                click.echo("\nRemoving Venue Entry...")
+                booking_banner()
+                helper.delete_venue()
 
             elif choice == "10":
-                click.echo("Updating Booking Status...")
+                click.echo("\nCreating Booking Entry...")
+                booking_banner()
+                helper.create_booking()
 
             elif choice == "11":
-                click.echo("Removing Booking Entry...")
+                click.echo("\nUpdating Booking Status...")
+                booking_banner()
+                helper.update_booking_status()
+
+            elif choice == "12":
+                click.echo("\n Updating Ticket Price...")
+                booking_banner()
+                helper.update_ticket_price()
+
+            elif choice == "13":
+                click.echo("\nRemoving Booking Entry...")
+                booking_banner()
                 helper.cancel_booking()
 
             else:
-                click.echo("Invalid choice. Try again")
+                click.echo("\nInvalid choice. Try again")
         except Exception as e:
-            click.echo(f"An error occured {e}")
+            click.echo(f"\nAn error occured {e}")
 
 
 # @click.command()

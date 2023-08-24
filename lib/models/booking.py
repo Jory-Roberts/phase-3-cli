@@ -24,5 +24,7 @@ class Booking(Base):
             + f"\n venue_id = {self.venue_id}, "
             + f"\n venue_name = {self.venue.venue_name}, "
             + f"\n booking_date = {self.booking_date}, "
+            + f"\n ticket_price = {self.ticket_price}, "
             + f"\n status = {self.status}"
+            + f"\n>"
         )

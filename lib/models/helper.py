@@ -59,9 +59,9 @@ def create_artist_entry():
         session.add(new_artist)
         session.commit()
 
-        click.echo(f"Artist: {artist_name} created!")
+        click.echo(f"\nArtist: {new_artist} created!")
     else:
-        click.echo(f"Artist: {artist_name} already exists")
+        click.echo(f"\nArtist: {artist_name} already exists")
 
 
 # filter by artist name
@@ -81,14 +81,14 @@ def update_artist_contact():
         update_existing_artist.phone_number = new_phone_number
 
         click.echo(
-            f"Artist: {artist_name} contact information has been updated successfully!"
+            f"\nArtist: {update_existing_artist} contact information has been updated successfully!"
         )
 
         session.add(update_existing_artist)
         session.commit()
 
     else:
-        click.echo(f"Artist: {artist_name} not found!")
+        click.echo(f"\nArtist: {artist_name} not found!")
 
 
 # query by artist name
@@ -165,13 +165,14 @@ def update_venue_capacity():
     if current_venue_capacity:
         current_venue_capacity.capacity = new_capacity
         click.echo(
-            f"Venue: {venue_name} has been updated to {new_capacity} for seating capacity."
+            f"\nVenue: {venue_name} has been updated to {new_capacity} for seating capacity."
         )
 
         session.commit()
+        click.echo(f"\nUpdated Venue: {current_venue_capacity}")
 
     else:
-        click.echo(f"Venue: {venue_name} capacity has not been updated.")
+        click.echo(f"\nVenue: {venue_name} capacity has not been updated.")
 
 
 # filter by venue name
@@ -199,9 +200,9 @@ def create_new_venue():
         session.add(new_venue)
         session.commit()
 
-        print(f"Venue: {venue_name} created!")
+        print(f"\nVenue: {new_venue} created!")
     else:
-        print(f"Venue: {venue_name} already exists!")
+        print(f"\nVenue: {venue_name} already exists!")
 
 
 # filter by venue name
@@ -218,9 +219,9 @@ def delete_venue():
         session.delete(venue_to_delete)
         session.commit()
 
-        print(f"Venue: {venue_name} has been deleted!")
+        print(f"\nVenue: {venue_name} has been deleted!")
     else:
-        print(f"Venue: {venue_name} does not exist.")
+        print(f"\nVenue: {venue_name} does not exist.")
 
 
 # query by status and booking date
@@ -228,21 +229,21 @@ def delete_venue():
 # otherwise, return message booking not created
 def create_booking():
     artist_name = click.prompt("Artist Name")
-    booking_date_str = click.prompt("Booking Date")
+    booking_date_str = click.prompt("Booking Date (YYYY-MM-DD)")
     ticket_price = click.prompt("Ticket Price")
     venue_name = click.prompt("Venue Name")
     status = click.prompt("Status")
     artist = session.query(Artist).filter_by(artist_name=artist_name).first()
 
     if not artist:
-        print(f"Artist: {artist_name} does not exist! Booking not created.")
+        print(f"\nArtist: {artist_name} does not exist! Booking not created.")
         return
 
     booking_date = datetime.strptime(booking_date_str, "%Y-%m-%d").date()
     venue = session.query(Venue).filter_by(venue_name=venue_name).first()
 
     if not venue:
-        click.echo(f"Venue: {venue_name} does not exist!")
+        click.echo(f"\nVenue: {venue_name} does not exist!")
         return
 
     existing_booking = (
@@ -252,7 +253,7 @@ def create_booking():
     )
 
     if existing_booking:
-        click.echo(f"Booking for {artist_name} already exists on {booking_date}")
+        click.echo(f"\nBooking for {artist_name} already exists on {booking_date}")
     else:
         new_booking = Booking(
             artist=artist,
@@ -265,7 +266,7 @@ def create_booking():
         session.commit()
 
         click.echo(
-            f"Booking created successfully. {artist_name} booked for {booking_date}"
+            f"\nBooking created successfully. {artist_name} booked for {booking_date}"
         )
 
 
@@ -273,7 +274,7 @@ def create_booking():
 # update status from "Pending" to "Confirmed" or vice versa
 def update_booking_status():
     artist_name = click.prompt("Artist Name")
-    booking_date_str = click.prompt("Booking Date")
+    booking_date_str = click.prompt("Booking Date (YYYY-MM-DD)")
     new_status = click.prompt("New Status")
 
     artist = session.query(Artist).filter_by(artist_name=artist_name).first()
@@ -294,17 +295,50 @@ def update_booking_status():
             session.commit()
 
         click.echo(
-            f"Status: {new_status}. Status updated successfully for {artist_name} on {booking_date_str}"
+            f"\nStatus: {new_status}. Status updated successfully for {artist_name} on {booking_date_str}"
         )
     else:
         click.echo(
-            f"Status: Status not updated. {artist_name} booking on {booking_date_str} not found"
+            f"\nStatus: Status not updated. {artist_name} booking on {booking_date_str} not found"
         )
 
 
 # query by booking_date
 # update price
 def update_ticket_price():
+    artist_name = click.prompt("Artist Name")
+    booking_date_str = click.prompt("Booking Date (YYYY-MM-DD)")
+    new_price = click.prompt("New Ticket Price")
+
+    artist = session.query(Artist).filter_by(artist_name=artist_name).first()
+    if not artist:
+        click.echo(f"\nArtist: {artist_name} not found")
+        return
+
+    booking_date = datetime.strptime(booking_date_str, "%Y-%m-%d").date()
+
+    booking_entries = (
+        session.query(Booking)
+        .filter_by(artist_id=artist.id, booking_date=booking_date)
+        .all()
+    )
+
+    if booking_entries:
+        for booking in booking_entries:
+            booking.ticket_price = new_price
+
+        session.commit()
+
+        click.echo(
+            f"\nTicket price for artist {artist_name} on date {booking_date} has been updated!"
+        )
+
+        for booking in booking_entries:
+            click.echo(f"Updated Booking: {booking}")
+
+    else:
+        click.echo(f"\nTicket price has not been updated!")
+
     pass
 
 
@@ -331,7 +365,7 @@ def cancel_booking():
         session.delete(find_by_current_booking)
         session.commit()
         print(
-            f"Booking: {artist_name} booked on {booking_date} at {venue_name} has been deleted."
+            f"\nBooking: {artist_name} booked on {booking_date} at {venue_name} has been deleted."
         )
     else:
-        print(f"Booking: {artist_name} not found for {booking_date} at {venue_name}.")
+        print(f"\nBooking: {artist_name} not found for {booking_date} at {venue_name}.")
