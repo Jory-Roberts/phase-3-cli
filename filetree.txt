@@ -1,0 +1,110 @@
+.
+├── Pipfile
+├── Pipfile.lock
+├── filetree.txt
+└── lib
+    ├── Images
+    │   └── Phase 3 Project Schema Music Venue.png
+    ├── README.md
+    ├── alembic.ini
+    ├── cli.py
+    ├── db
+    │   └── artist_venue.db
+    ├── debug.py
+    ├── migrations
+    │   ├── README
+    │   ├── __pycache__
+    │   │   └── env.cpython-310.pyc
+    │   ├── env.py
+    │   ├── script.py.mako
+    │   └── versions
+    │       ├── 0524cd4a23ae_generate_new_schema_version_09.py
+    │       ├── 06bb7ca12796_regenerate_schema_version_05.py
+    │       ├── 0fa17253848a_rename_to_artist_name_and_venue_name_in_.py
+    │       ├── 13dddc4fbf0e_drop_tables.py
+    │       ├── 2af05c978204_initial_schema.py
+    │       ├── 3084b4f9a9bd_drop_tables_to_add_price_to_booking.py
+    │       ├── 3da455692bfb_schema_version_07.py
+    │       ├── 51a04dd97d8b_regenerate_schema_version_06.py
+    │       ├── 553cd82783d0_drop_tables_to_remove_backref_in_booking.py
+    │       ├── 581b661a12f0_schema_version_10.py
+    │       ├── 5937ed9599fe_modify_booking_table_remove_artist_name_.py
+    │       ├── 59393c28bb88_mvp_final_schema.py
+    │       ├── 60eacf198519_empty_init.py
+    │       ├── 6a89f7136e6e_drop_tables_to_change_booking_table.py
+    │       ├── 72bab9c35505_drop_tables_for_schema_version_10.py
+    │       ├── 773a3c722652_drop_table_to_remove_address_from_venue_.py
+    │       ├── 7e746ae6cf0d_drop_tables_after_removing_backref_from_.py
+    │       ├── 80d30be9685d_drop_tables_add_artist_name_venue_name_.py
+    │       ├── 8aa609ed308b_generate_new_schema_version_08.py
+    │       ├── 9c01fedf95a0_recreate_schema.py
+    │       ├── __pycache__
+    │       │   ├── 0524cd4a23ae_generate_new_schema_version_09.cpython-310.pyc
+    │       │   ├── 06bb7ca12796_regenerate_schema_version_05.cpython-310.pyc
+    │       │   ├── 0fa17253848a_rename_to_artist_name_and_venue_name_in_.cpython-310.pyc
+    │       │   ├── 13dddc4fbf0e_drop_tables.cpython-310.pyc
+    │       │   ├── 1537d957bbbd_change_capacity_column_to_integer.cpython-310.pyc
+    │       │   ├── 2af05c978204_initial_schema.cpython-310.pyc
+    │       │   ├── 3084b4f9a9bd_drop_tables_to_add_price_to_booking.cpython-310.pyc
+    │       │   ├── 3da455692bfb_schema_version_07.cpython-310.pyc
+    │       │   ├── 51a04dd97d8b_regenerate_schema_version_06.cpython-310.pyc
+    │       │   ├── 553cd82783d0_drop_tables_to_remove_backref_in_booking.cpython-310.pyc
+    │       │   ├── 581b661a12f0_schema_version_10.cpython-310.pyc
+    │       │   ├── 5937ed9599fe_modify_booking_table_remove_artist_name_.cpython-310.pyc
+    │       │   ├── 59393c28bb88_mvp_final_schema.cpython-310.pyc
+    │       │   ├── 60eacf198519_empty_init.cpython-310.pyc
+    │       │   ├── 6a89f7136e6e_drop_tables_to_change_booking_table.cpython-310.pyc
+    │       │   ├── 72bab9c35505_drop_tables_for_schema_version_10.cpython-310.pyc
+    │       │   ├── 773a3c722652_drop_table_to_remove_address_from_venue_.cpython-310.pyc
+    │       │   ├── 777e5d438b45_updates_capacity_column_to_integer.cpython-310.pyc
+    │       │   ├── 7a46ff4002a8_drop_tables_add_artist_name_venue_name_.cpython-310.pyc
+    │       │   ├── 7e746ae6cf0d_drop_tables_after_removing_backref_from_.cpython-310.pyc
+    │       │   ├── 80d30be9685d_drop_tables_add_artist_name_venue_name_.cpython-310.pyc
+    │       │   ├── 8aa609ed308b_generate_new_schema_version_08.cpython-310.pyc
+    │       │   ├── 9c01fedf95a0_recreate_schema.cpython-310.pyc
+    │       │   ├── a0c670ff6d5f_adds_name_and_venue_to_booking.cpython-310.pyc
+    │       │   ├── a126ca37b3f4_add_name_and_venue_to_booking.cpython-310.pyc
+    │       │   ├── a4c32ce50f87_drop_tables_to_regnerate_schema.cpython-310.pyc
+    │       │   ├── a7a01960fa58_regenerate_schema_version_03.cpython-310.pyc
+    │       │   ├── ac40605f3eb3_remove_artist_name_and_venue_name_from_.cpython-310.pyc
+    │       │   ├── b4376da240ad_regenerate_schema_version_04.cpython-310.pyc
+    │       │   ├── d57bfb18113a_remove_artist_name_and_venue_name_from_.cpython-310.pyc
+    │       │   ├── da7caeb73229_updates_capacity_column_to_integer.cpython-310.pyc
+    │       │   ├── e025e1c88e9b_modifies_booking_table_fixes_.cpython-310.pyc
+    │       │   └── f2db78802aa8_drop_tables_to_add_name_and_venue_to_.cpython-310.pyc
+    │       ├── a0c670ff6d5f_adds_name_and_venue_to_booking.py
+    │       ├── a4c32ce50f87_drop_tables_to_regnerate_schema.py
+    │       ├── a7a01960fa58_regenerate_schema_version_03.py
+    │       ├── ac40605f3eb3_remove_artist_name_and_venue_name_from_.py
+    │       ├── b4376da240ad_regenerate_schema_version_04.py
+    │       ├── e025e1c88e9b_modifies_booking_table_fixes_.py
+    │       └── f2db78802aa8_drop_tables_to_add_name_and_venue_to_.py
+    ├── models
+    │   ├── __init__.py
+    │   ├── __pycache__
+    │   │   ├── __init__.cpython-310.pyc
+    │   │   ├── __init__.cpython-38.pyc
+    │   │   ├── artist.cpython-310.pyc
+    │   │   ├── artist.cpython-38.pyc
+    │   │   ├── base.cpython-310.pyc
+    │   │   ├── base.cpython-38.pyc
+    │   │   ├── booking.cpython-310.pyc
+    │   │   ├── booking.cpython-38.pyc
+    │   │   ├── debug.cpython-38.pyc
+    │   │   ├── display_tables.cpython-38.pyc
+    │   │   ├── helper.cpython-38.pyc
+    │   │   ├── session.cpython-310.pyc
+    │   │   ├── session.cpython-38.pyc
+    │   │   ├── venue.cpython-310.pyc
+    │   │   └── venue.cpython-38.pyc
+    │   ├── artist.py
+    │   ├── base.py
+    │   ├── booking.py
+    │   ├── display_tables.py
+    │   ├── helper.py
+    │   ├── session.py
+    │   ├── validation.py
+    │   └── venue.py
+    └── seeds.py
+
+9 directories, 98 files
