@@ -303,7 +303,7 @@ def update_booking_status():
         )
 
 
-# query by booking_date
+# query by artist_name, booking_date
 # update price
 def update_ticket_price():
     artist_name = click.prompt("Artist Name")
