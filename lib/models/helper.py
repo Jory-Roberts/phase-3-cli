@@ -339,8 +339,6 @@ def update_ticket_price():
     else:
         click.echo(f"\nTicket price has not been updated!")
 
-    pass
-
 
 # query by booking_date, artist name
 # remove booking, return message that confirmed
