@@ -1,6 +1,6 @@
 # Booked! App
 
-![CLIOptions](.lib/../Images/CLI%20Options.png)
+![CLIOptions](/Images/CLI%20Options.png)
 
 ## Inspiration
 
@@ -8,7 +8,7 @@ My idea for Booked! is quite simple: Music scenes are large and diverse across m
 
 ## Project Design
 
-![Phase3Schema](./lib/../Images/Phase%203%20Project%20Schema%20Music%20Venue.png)
+![Phase3Schema](/Images/Phase%203%20Project%20Schema%20Music%20Venue.png)
 
 The design features 3 tables for reference: Artist, Venue and Booking. I intended the Booking table to act like an association table, but I added a booking date along with a ticket price and status columns. This helps maintain my many-to-many relationship. Eventually, I would like to expand this project and allow for users to designate whether they are an 'artist' or 'venue owner'.
 
