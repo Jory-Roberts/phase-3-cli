@@ -162,9 +162,9 @@ def artist_availability():
             f"Artist: {artist_name} is available on {check_artist_availability.availability}"
         )
     else:
-        click.echo(
-            f"Artist: {artist_name} is not available on {check_artist_availability.availability}"
-        )
+        click.echo(f"Artist: {artist_name} is not in the database.")
+        if click.confirm("Would you like to add this artist to the database?"):
+            create_artist_entry()
 
 
 ## query venue by name and capacity
@@ -174,13 +174,13 @@ def check_venue_capacity():
     venue = session.query(Venue).filter_by(venue_name=venue_name).first()
 
     if venue:
-        session.commit()
-
         click.echo(
             f"Venue: {venue_name} has {venue.capacity} seats available for seating"
         )
     else:
         click.echo(f"Venue: Unable to find {venue_name} provided")
+        if click.confirm("Would you like to add this venue to the database?"):
+            create_new_venue()
 
 
 ##query venue by name and capacity
@@ -274,15 +274,28 @@ def create_booking():
         return
 
     if not artist:
-        print(f"\nArtist: {artist_name} does not exist! Booking not created.")
+        click.confirm(
+            f"\nArtist: {artist_name} does not exist! Booking not created. Would you like to add {artist_name} to the database?"
+        )
+        create_artist_entry()
+        artist = session.query(Artist).filter_by(artist_name=artist_name).first()
+
+    if not artist:
+        click.echo(f"\nArtist: {artist_name} does not exist")
         return
 
     booking_date = datetime.strptime(booking_date_str, "%Y-%m-%d").date()
     venue = session.query(Venue).filter_by(venue_name=venue_name).first()
 
     if not venue:
-        click.echo(f"\nVenue: {venue_name} does not exist!")
-        return
+        click.confirm(
+            f"\nVenue: {venue_name} does not exist! Would you like to add the venue to the database?"
+        )
+        create_new_venue()
+        venue = session.query(Venue).filter_by(venue_name=venue_name).first()
+
+    if not venue:
+        click.echo(f"\nVenue: {venue_name} does not exist! Booking not created!")
 
     existing_booking = (
         session.query(Booking)
