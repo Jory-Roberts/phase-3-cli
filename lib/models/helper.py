@@ -88,7 +88,7 @@ def create_artist_entry():
         session.add(new_artist)
         session.commit()
 
-        click.echo(f"\nArtist: {new_artist} created!")
+        click.echo(f"\nArtist: {artist_name} created!")
     else:
         click.echo(f"\nArtist: {artist_name} already exists")
 
@@ -391,7 +391,7 @@ def update_ticket_price():
         )
 
         for booking in booking_entries:
-            click.echo(f"Updated Booking: {booking}")
+            click.echo(f"Updated Booking: Ticket price is now {new_price}")
 
     else:
         click.echo(f"\nTicket price has not been updated!")
