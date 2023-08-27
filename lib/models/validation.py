@@ -5,12 +5,12 @@ from datetime import datetime
 class Validation:
     @staticmethod
     def email(email):
-        pattern = r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+        pattern = re.compile("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}")
         return re.fullmatch(pattern, email) is not None
 
     @staticmethod
     def phone_number(phone_number):
-        pattern = r"\d{3}-\d{3}-\d{4}$"
+        pattern = re.compile("\d{3}-\d{3}-\d{4}$")
         return re.fullmatch(pattern, phone_number) is not None
 
     @staticmethod

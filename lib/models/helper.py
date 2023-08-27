@@ -9,23 +9,21 @@ session = Session()
 
 # helper for validating input
 def is_valid_user_input(**kwargs):
-    is_valid = True
-
     if "email" in kwargs and not validation.Validation.email(kwargs["email"]):
         click.echo("\nInvalid email format! example@example.com format expected.")
-        is_valid = False
+        return False
 
     if "phone_number" in kwargs and not validation.Validation.phone_number(
         kwargs["phone_number"]
     ):
         click.echo("\nInvalid phone number! XXX-XXX-XXXX format expected.")
-        is_valid = False
+        return False
 
     if "date" in kwargs and not validation.Validation.date(kwargs["date"]):
         click.echo("\nInvalid date! YYYY-MM-DD format expected.")
-        is_valid = False
+        return False
 
-    return is_valid
+    return True
 
 
 # query by all artists
@@ -88,9 +86,9 @@ def create_artist_entry():
         session.add(new_artist)
         session.commit()
 
-        click.echo(f"\nArtist: {artist_name} created!")
+        click.echo(f"Artist: {artist_name} created!")
     else:
-        click.echo(f"\nArtist: {artist_name} already exists")
+        click.echo(f"Artist: {artist_name} already exists")
 
 
 # filter by artist name
@@ -113,14 +111,14 @@ def update_artist_contact():
         update_existing_artist.phone_number = new_phone_number
 
         click.echo(
-            f"\nArtist: {update_existing_artist} contact information has been updated successfully!"
+            f"Artist: {update_existing_artist} contact information has been updated successfully!"
         )
 
         session.add(update_existing_artist)
         session.commit()
 
     else:
-        click.echo(f"\nArtist: {artist_name} not found!")
+        click.echo(f"Artist: {artist_name} not found!")
 
 
 # query by artist name
@@ -197,14 +195,14 @@ def update_venue_capacity():
     if current_venue_capacity:
         current_venue_capacity.capacity = new_capacity
         click.echo(
-            f"\nVenue: {venue_name} has been updated to {new_capacity} for seating capacity."
+            f"Venue: {venue_name} has been updated to {new_capacity} for seating capacity."
         )
 
         session.commit()
-        click.echo(f"\nUpdated Venue: {current_venue_capacity}")
+        click.echo(f"Updated Venue: {current_venue_capacity}")
 
     else:
-        click.echo(f"\nVenue: {venue_name} capacity has not been updated.")
+        click.echo(f"Venue: {venue_name} capacity has not been updated.")
 
 
 # filter by venue name
@@ -289,13 +287,13 @@ def create_booking():
 
     if not venue:
         click.confirm(
-            f"\nVenue: {venue_name} does not exist! Would you like to add the venue to the database?"
+            f"Venue: {venue_name} does not exist! Would you like to add the venue to the database?"
         )
         create_new_venue()
         venue = session.query(Venue).filter_by(venue_name=venue_name).first()
 
     if not venue:
-        click.echo(f"\nVenue: {venue_name} does not exist! Booking not created!")
+        click.echo(f"Venue: {venue_name} does not exist! Booking not created!")
 
     existing_booking = (
         session.query(Booking)
@@ -304,7 +302,7 @@ def create_booking():
     )
 
     if existing_booking:
-        click.echo(f"\nBooking for {artist_name} already exists on {booking_date}")
+        click.echo(f"Booking for {artist_name} already exists on {booking_date}")
     else:
         new_booking = Booking(
             artist=artist,
@@ -317,7 +315,7 @@ def create_booking():
         session.commit()
 
         click.echo(
-            f"\nBooking created successfully. {artist_name} booked for {booking_date}"
+            f"Booking created successfully. {artist_name} booked for {booking_date}"
         )
 
 
@@ -349,11 +347,11 @@ def update_booking_status():
             session.commit()
 
         click.echo(
-            f"\nStatus: {new_status}. Status updated successfully for {artist_name} on {booking_date_str}"
+            f"Status: {new_status}. Status updated successfully for {artist_name} on {booking_date_str}"
         )
     else:
         click.echo(
-            f"\nStatus: Status not updated. {artist_name} booking on {booking_date_str} not found"
+            f"Status: Status not updated. {artist_name} booking on {booking_date_str} not found"
         )
 
 
@@ -387,14 +385,14 @@ def update_ticket_price():
         session.commit()
 
         click.echo(
-            f"\nTicket price for artist {artist_name} on date {booking_date} has been updated!"
+            f"Ticket price for artist {artist_name} on date {booking_date} has been updated!"
         )
 
         for booking in booking_entries:
             click.echo(f"Updated Booking: Ticket price is now {new_price}")
 
     else:
-        click.echo(f"\nTicket price has not been updated!")
+        click.echo(f"Ticket price has not been updated!")
 
 
 # query by booking_date, artist name
@@ -423,7 +421,7 @@ def cancel_booking():
         session.delete(find_by_current_booking)
         session.commit()
         print(
-            f"\nBooking: {artist_name} booked on {booking_date} at {venue_name} has been deleted."
+            f"Booking: {artist_name} booked on {booking_date} at {venue_name} has been deleted."
         )
     else:
-        print(f"\nBooking: {artist_name} not found for {booking_date} at {venue_name}.")
+        print(f"Booking: {artist_name} not found for {booking_date} at {venue_name}.")

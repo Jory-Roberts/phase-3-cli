@@ -9,8 +9,12 @@ from models.display_tables import artist_table, venue_table, booking_table
 session = Session()
 
 
+def clear_screen():
+    print("\n" * 40)
+
+
 def welcome_banner():
-    banner = pyfiglet.figlet_format("Welcome!", font="slant")
+    banner = pyfiglet.figlet_format("Welcome to Booked!", font="slant")
     color_banner = colored(banner, "green")
     click.echo(color_banner)
 
@@ -79,6 +83,7 @@ def main():
                 break
 
             elif choice == "1":
+                clear_screen()
                 click.echo("\nDisplaying Artist, Venue and Booking...")
                 artist_banner()
                 display_artist_table()
@@ -88,61 +93,74 @@ def main():
                 display_booking_table()
 
             elif choice == "2":
+                clear_screen()
                 click.echo("\nCreating Artist Entry...")
                 artist_banner()
                 helper.create_artist_entry()
+                clear_screen()
 
             elif choice == "3":
+                clear_screen()
                 click.echo("\nUpdating Artist Contact Information...")
                 artist_banner()
                 helper.update_artist_contact()
 
             elif choice == "4":
+                clear_screen()
                 click.echo("\nRemoving Artist Entry...")
                 artist_banner()
                 helper.remove_artist()
 
             elif choice == "5":
+                clear_screen()
                 click.echo("\nChecking Artist Availability...")
                 artist_banner()
                 helper.artist_availability()
 
             elif choice == "6":
+                clear_screen()
                 click.echo("\nChecking Venue Capacity...")
                 venue_banner()
                 helper.check_venue_capacity()
 
             elif choice == "7":
+                clear_screen()
                 click.echo("\nUpdating Venue Capacity")
                 venue_banner()
                 helper.update_venue_capacity()
 
             elif choice == "8":
+                clear_screen()
                 click.echo("\nCreating Venue Entry...")
                 venue_banner()
                 helper.create_new_venue()
 
             elif choice == "9":
+                clear_screen()
                 click.echo("\nRemoving Venue Entry...")
                 booking_banner()
                 helper.delete_venue()
 
             elif choice == "10":
+                clear_screen()
                 click.echo("\nCreating Booking Entry...")
                 booking_banner()
                 helper.create_booking()
 
             elif choice == "11":
+                clear_screen()
                 click.echo("\nUpdating Booking Status...")
                 booking_banner()
                 helper.update_booking_status()
 
             elif choice == "12":
+                clear_screen()
                 click.echo("\n Updating Ticket Price...")
                 booking_banner()
                 helper.update_ticket_price()
 
             elif choice == "13":
+                clear_screen()
                 click.echo("\nRemoving Booking Entry...")
                 booking_banner()
                 helper.cancel_booking()
